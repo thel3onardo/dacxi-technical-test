@@ -15,8 +15,8 @@ type Variant = keyof typeof variants
 type RoundOption = keyof typeof roundOptions
 
 type Props = {
-  variant: Variant
-  rounded: RoundOption
+  variant?: Variant
+  rounded?: RoundOption
   icon?: string
 }
 
@@ -24,11 +24,14 @@ withDefaults(defineProps<Props>(), {
   variant: 'default',
   rounded: 'lg'
 })
+
+const emit = defineEmits(['click'])
 </script>
 
 <template>
-  <!-- TODO: iprove this simple logic -->
+  <!-- TODO: improve this simple logic -->
   <button
+    @click="emit('click')"
     :class="`py-2 px-5 rounded-lg font-medium text-light ${variants[variant]} ${roundOptions[rounded]}`"
   >
     <slot />

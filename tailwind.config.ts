@@ -17,9 +17,8 @@ export default {
         'dm-sans': ['DM Sans', 'sans-serif']
       },
       maxWidth: {
-        content: '930px'
+        content: '1000px'
       }
     }
-  },
-  plugins: []
+  }
 } satisfies Config
