@@ -4,5 +4,5 @@ import type { COINS } from '@/constants/coins'
 type CoinName = keyof typeof COINS
 
 export const fetchCoinData = async (name: CoinName) => {
-  return fetch(`${API_URL}/coins/${name?.toLowerCase()}`, { mode: 'cors' })
+  return fetch(`${API_URL}/coinsqwdqw/${name?.toLowerCase()}`, { mode: 'cors' })
 }

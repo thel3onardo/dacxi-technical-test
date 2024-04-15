@@ -8,9 +8,11 @@ import { capitalizeWord } from '@/util/capitalizeWord'
 import { COINS } from '@/constants/coins'
 import { onMounted, ref } from 'vue'
 import { fetchCoinData } from '@/services'
+import Card from '@/components/ui/Card.vue'
 
 const currentCoin = ref()
 const loading = ref(false)
+const fetchFailed = ref(false)
 
 type CurrentCoin = {
   id: string
@@ -39,6 +41,7 @@ const fetchAndSetData = async (coinName: any) => {
     const data = await res.json()
 
     if (res.status === 200 && data) {
+      fetchFailed.value = false
       return setCurrentCoin({
         id: data.id,
         name: data.name,
@@ -54,7 +57,10 @@ const fetchAndSetData = async (coinName: any) => {
         }
       })
     }
+
+    throw Error()
   } catch (err) {
+    fetchFailed.value = true
     toast.error('Failed to load data. Please, try again.')
   } finally {
     loading.value = false
@@ -79,20 +85,28 @@ onMounted(async () => {
         </li>
       </ul>
     </div>
-    <CurrentCoinCard
-      :price="{
-        current: currentCoin?.price.current,
-        higherPriceLastDay: currentCoin?.price.higherPriceLastDay,
-        lowestPriceLastDay: currentCoin?.price.lowestPriceLastDay,
-        changeInPercentageLastDay: currentCoin?.price.changeInPercentageLastDay
-      }"
-      :name="currentCoin?.name"
-      :symbol="currentCoin?.symbol"
-      :logo="{
-        alt: 'ff',
-        url: currentCoin?.logo?.url
-      }"
-      :loading="loading"
-    />
+
+    <template v-if="fetchFailed">
+      <Card class="flex justify-center w-full text-light">
+        <p class="font-semibold">An error ocurred. Please try again later!</p>
+      </Card>
+    </template>
+    <template v-else>
+      <CurrentCoinCard
+        :price="{
+          current: currentCoin?.price.current,
+          higherPriceLastDay: currentCoin?.price.higherPriceLastDay,
+          lowestPriceLastDay: currentCoin?.price.lowestPriceLastDay,
+          changeInPercentageLastDay: currentCoin?.price.changeInPercentageLastDay
+        }"
+        :name="currentCoin?.name"
+        :symbol="currentCoin?.symbol"
+        :logo="{
+          alt: 'ff',
+          url: currentCoin?.logo?.url
+        }"
+        :loading="loading"
+      />
+    </template>
   </BaseLayout>
 </template>
