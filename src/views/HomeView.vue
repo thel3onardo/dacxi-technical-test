@@ -2,8 +2,9 @@
 import CurrentCoinCard from '@/components/CurrentCoinCard.vue'
 import BaseLayout from '@/components/layout/BaseLayout.vue'
 import Button from '@/components/ui/Button.vue'
-import { capitalizeWord } from '@/util/capitalizeWord'
 
+import { toast } from 'vue-sonner'
+import { capitalizeWord } from '@/util/capitalizeWord'
 import { COINS } from '@/constants/coins'
 import { onMounted, ref } from 'vue'
 import { fetchCoinData } from '@/services'
@@ -33,11 +34,12 @@ const setCurrentCoin = (coin: CurrentCoin) => {
 const fetchAndSetData = async (coinName: any) => {
   try {
     loading.value = true
+
     const res = await fetchCoinData(coinName)
     const data = await res.json()
 
     if (res.status === 200 && data) {
-      setCurrentCoin({
+      return setCurrentCoin({
         id: data.id,
         name: data.name,
         symbol: data.symbol,
@@ -52,10 +54,8 @@ const fetchAndSetData = async (coinName: any) => {
         }
       })
     }
-
-    console.log(data)
   } catch (err) {
-    console.error(err)
+    toast.error('Failed to load data. Please, try again.')
   } finally {
     loading.value = false
   }

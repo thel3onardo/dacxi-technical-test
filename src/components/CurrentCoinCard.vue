@@ -29,7 +29,7 @@ const formatPercentage = (percentageValue: number) => {
 </script>
 
 <template>
-  <Card class="flex flex-col justify-center gap-y-11 items-center">
+  <Card class="flex flex-col justify-center gap-y-14 items-center">
     <template v-if="loading">
       <Spinner />
     </template>
