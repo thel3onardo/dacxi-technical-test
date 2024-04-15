@@ -15,6 +15,9 @@ export default {
       fontFamily: {
         sans: ['Lexend', ...defaultTheme.fontFamily.sans],
         'dm-sans': ['DM Sans', 'sans-serif']
+      },
+      maxWidth: {
+        content: '930px'
       }
     }
   },
