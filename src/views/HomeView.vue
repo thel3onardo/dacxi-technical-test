@@ -1,18 +1,21 @@
 <script setup lang="ts">
-import CurrentCoinCard from '@/components/CurrentCoinCard.vue'
-import BaseLayout from '@/components/layout/BaseLayout.vue'
-import Button from '@/components/ui/Button.vue'
-
 import { toast } from 'vue-sonner'
 import { capitalizeWord } from '@/util/capitalizeWord'
 import { COINS } from '@/constants/coins'
 import { onMounted, ref } from 'vue'
 import { fetchCoinData } from '@/services'
+
+import CurrentCoinCard from '@/components/CurrentCoinCard.vue'
+import BaseLayout from '@/components/layout/BaseLayout.vue'
+import Button from '@/components/ui/Button.vue'
+
 import Card from '@/components/ui/Card.vue'
+import DateFilter from '@/components/DateFilter.vue'
 
 const currentCoin = ref()
+const dateSelected = ref<Date | string>()
 const loading = ref(false)
-const fetchFailed = ref(false)
+const fetchError = ref(false)
 
 type CurrentCoin = {
   id: string
@@ -33,15 +36,16 @@ const setCurrentCoin = (coin: CurrentCoin) => {
   currentCoin.value = coin
 }
 
-const fetchAndSetData = async (coinName: any) => {
+const fetchAndSetData = async (coinName: any, filterDate: string = '') => {
   try {
     loading.value = true
 
-    const res = await fetchCoinData(coinName)
+    const res = await fetchCoinData({ name: coinName, filterDate })
     const data = await res.json()
 
     if (res.status === 200 && data) {
-      fetchFailed.value = false
+      fetchError.value = false
+
       return setCurrentCoin({
         id: data.id,
         name: data.name,
@@ -60,11 +64,18 @@ const fetchAndSetData = async (coinName: any) => {
 
     throw Error()
   } catch (err) {
-    fetchFailed.value = true
+    fetchError.value = true
     toast.error('Failed to load data. Please, try again.')
   } finally {
     loading.value = false
   }
+}
+
+const setDateAndFetch = (dateFormatted: string) => {
+  //Expected input date in format 'DD-MM-YYYY'
+  dateSelected.value = dateFormatted
+
+  return fetchAndSetData(currentCoin.value.id, dateSelected.value)
 }
 
 onMounted(async () => {
@@ -74,8 +85,8 @@ onMounted(async () => {
 
 <template>
   <BaseLayout>
-    <div class="flex justify-between w-full mb-6">
-      <ul class="gap-x-4 flex">
+    <div class="flex justify-between items-end w-full mb-8">
+      <ul class="gap-x-4 flex items-center">
         <li v-for="coin in COINS" :key="coin">
           <Button
             @click="fetchAndSetData(coin)"
@@ -84,9 +95,12 @@ onMounted(async () => {
           >
         </li>
       </ul>
+      <DateFilter @apply="setDateAndFetch" />
     </div>
 
-    <template v-if="fetchFailed">
+    <h2 class="text-2xl text-light font-semibold mb-4">Showing results for Today</h2>
+
+    <template v-if="fetchError">
       <Card class="flex justify-center w-full text-light">
         <p class="font-semibold">An error ocurred. Please try again later!</p>
       </Card>
