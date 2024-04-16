@@ -34,13 +34,16 @@ const emitApply = () => {
 </script>
 
 <template>
-  <div class="flex flex-col relative">
-    <div class="flex gap-x-3 items-end">
-      <InputDate v-model="dateValue" />
-      <Button v-if="dateValue" @click="resetState" variant="default">
-        <Icon icon="ph:x" class="text-2xl" />
-      </Button>
-      <Button @click="emitApply" variant="primary">Apply</Button>
+  <div class="flex flex-col relative w-full md:w-auto px-2">
+    <div class="flex gap-3 items-end flex-col md:flex-row w-full md:w-auto">
+      <InputDate v-model="dateValue" class="w-full" />
+
+      <div class="flex gap-x-3 w-full">
+        <Button v-if="dateValue" @click="resetState" variant="default" class="w-full md:w-auto">
+          <Icon icon="ph:x" class="text-2xl" />
+        </Button>
+        <Button @click="emitApply" variant="primary" class="w-full md:w-auto">Apply</Button>
+      </div>
     </div>
     <p v-if="showValidationError" class="text-red-400 text-xs mt-1 absolute top-full">
       Invalid date

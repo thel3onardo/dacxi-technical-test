@@ -19,7 +19,7 @@ const formatPercentage = (percentageValue: number) => {
       <Spinner />
     </template>
     <template v-else>
-      <div class="flex gap-x-3">
+      <div class="flex flex-col md:flex-row gap-x-3">
         <div class="w-12 h-12">
           <img
             :src="coinStore.currentCoin?.logo.url"
@@ -40,7 +40,7 @@ const formatPercentage = (percentageValue: number) => {
       >
         <section class="flex flex-col gap-y-2">
           <span class="uppercase text-sm text-[#D9D9D9]/80">current price</span>
-          <div class="flex items-end gap-x-4">
+          <div class="flex items-start md:items-end flex-col md:flex-row gap-x-4">
             <h4 class="font-semibold text-3xl text-light">
               ${{ Number(coinStore.currentCoin?.price.current) }}
             </h4>

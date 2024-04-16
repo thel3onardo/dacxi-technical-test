@@ -39,6 +39,7 @@ onMounted(async () => {
             @click="coinStore.fetchAndSetData(coin)"
             class="w-full md:w-auto"
             :variant="coinStore.currentCoin?.id === coin ? 'primary' : 'default'"
+            block
             >{{ capitalizeWord(coin) }}</Button
           >
         </li>

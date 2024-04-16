@@ -32,7 +32,7 @@ const emit = defineEmits(['click'])
   <!-- TODO: improve this simple logic -->
   <button
     @click="emit('click')"
-    :class="`py-2 px-5 rounded-lg font-medium text-light ${variants[variant]} ${roundOptions[rounded]}`"
+    :class="`py-2 px-5 rounded-lg font-medium text-light flex justify-center ${variants[variant]} ${roundOptions[rounded]}`"
   >
     <slot />
   </button>
