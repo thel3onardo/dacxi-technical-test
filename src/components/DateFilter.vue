@@ -23,7 +23,8 @@ const resetState = async () => {
 }
 
 const emitApply = () => {
-  if (!dateValue.value) {
+  console.log('length', dateValue.value.length)
+  if (!dateValue.value || dateValue.value?.length !== 10) {
     showValidationError.value = true
     return
   }
