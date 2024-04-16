@@ -18,7 +18,7 @@ const setDateAndFetch = (dateFormatted: string) => {
   //Expected input date in format 'DD-MM-YYYY'
   coinStore.setDateFilter(dateFormatted)
 
-  return coinStore.fetchAndSetData(coinStore.currentCoin.value?.id)
+  return coinStore.fetchAndSetData(coinStore.currentCoin?.id)
 }
 
 onMounted(async () => {

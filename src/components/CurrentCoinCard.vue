@@ -14,7 +14,7 @@ const formatPercentage = (percentageValue: number) => {
 </script>
 
 <template>
-  <Card class="flex flex-col justify-center gap-y-14 items-center">
+  <Card class="flex flex-col justify-center gap-y-14 items-center min-h-[270px]">
     <template v-if="coinStore.loading">
       <Spinner />
     </template>

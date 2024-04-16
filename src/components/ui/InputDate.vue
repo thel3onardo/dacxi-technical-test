@@ -1,9 +1,5 @@
 <script setup lang="ts">
 const model = defineModel()
-
-const updateModel = (event: Event) => {
-  model.value = (event.target as HTMLInputElement).value
-}
 </script>
 
 <template>
@@ -15,7 +11,7 @@ const updateModel = (event: Event) => {
       placeholder="Insert a date"
       class="bg-transparent border border-[#D9D9D9]/10 p-2 rounded-lg text-light/80 text-sm min-w-[10rem]"
       inputmode="numeric"
-      @input="updateModel"
+      v-model="model"
     />
   </form>
 </template>
