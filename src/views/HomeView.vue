@@ -58,6 +58,8 @@ onMounted(async () => {
     </template>
     <template v-else>
       <CurrentCoinCard />
+
+      <p class="text-gray-500 text-sm mt-4">Data automatically updates every 30 seconds.</p>
     </template>
   </BaseLayout>
 </template>

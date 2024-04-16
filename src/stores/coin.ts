@@ -1,5 +1,5 @@
 import { fetchCoinData } from '@/services'
-import type { CurrentCoin } from '@/types'
+import type { CoinName, CurrentCoin } from '@/types'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { toast } from 'vue-sonner'
@@ -9,6 +9,7 @@ export const useCoinStore = defineStore('coin', () => {
   const filterDate = ref('')
   const loading = ref(false)
   const fetchFailed = ref(false)
+  const fetchTimeout = ref()
 
   const resetDateFilter = () => {
     filterDate.value = ''
@@ -22,7 +23,9 @@ export const useCoinStore = defineStore('coin', () => {
     currentCoin.value = coin
   }
 
-  const fetchAndSetData = async (coinName: any) => {
+  const fetchAndSetData = async (coinName: CoinName) => {
+    if (fetchTimeout.value) clearTimeout(fetchTimeout.value)
+
     try {
       loading.value = true
 
@@ -31,6 +34,10 @@ export const useCoinStore = defineStore('coin', () => {
 
       if (res.status === 200 && data) {
         fetchFailed.value = false
+
+        fetchTimeout.value = setTimeout(() => {
+          fetchAndSetData(coinName)
+        }, 30000)
 
         return setCurrentCoin({
           id: data.id,
@@ -48,9 +55,14 @@ export const useCoinStore = defineStore('coin', () => {
         })
       }
 
-      throw Error()
-    } catch (err) {
+      throw new Error('Failed to load data')
+    } catch (err: any) {
       fetchFailed.value = true
+
+      if (err.status === 429) {
+        return toast.error('Too many requests. Please, try again later.')
+      }
+
       toast.error('Failed to load data. Please, try again.')
     } finally {
       loading.value = false

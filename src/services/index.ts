@@ -1,11 +1,5 @@
 import { API_URL } from '@/constants/api'
-import type { COINS } from '@/constants/coins'
-
-type CoinName = keyof typeof COINS
-type FetchCoinArgs = {
-  name: CoinName
-  filterDate: string
-}
+import type { FetchCoinArgs } from '@/types'
 
 export const fetchCoinData = async ({ name, filterDate }: FetchCoinArgs) => {
   const coinNameFormatted = name?.toLowerCase()

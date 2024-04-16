@@ -1,3 +1,5 @@
+import type { COINS } from '@/constants/coins'
+
 export type CurrentCoin = {
   id: string
   name: string
@@ -11,4 +13,11 @@ export type CurrentCoin = {
   logo: {
     url: string
   }
+}
+
+export type CoinName = keyof typeof COINS
+
+export type FetchCoinArgs = {
+  name: CoinName
+  filterDate: string
 }
