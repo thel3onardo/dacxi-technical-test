@@ -27,12 +27,17 @@ onMounted(async () => {
 </script>
 
 <template>
-  <BaseLayout>
-    <div class="flex justify-between items-end w-full mb-8">
-      <ul class="gap-x-4 flex items-center">
-        <li v-for="coin in COINS" :key="coin">
+  <BaseLayout class="px-8">
+    <div
+      class="flex justify-between flex-col items-center gap-y-8 md:items-end md:flex-row w-full mb-8"
+    >
+      <ul
+        class="gap-x-4 flex flex-col md:flex-row items-center gap-y-6 md:gap-y-0 w-full max-w-[300px] md:w-auto"
+      >
+        <li v-for="coin in COINS" :key="coin" class="w-full">
           <Button
             @click="coinStore.fetchAndSetData(coin)"
+            class="w-full md:w-auto"
             :variant="coinStore.currentCoin?.id === coin ? 'primary' : 'default'"
             >{{ capitalizeWord(coin) }}</Button
           >
@@ -41,7 +46,7 @@ onMounted(async () => {
       <DateFilter @apply="setDateAndFetch" />
     </div>
 
-    <h2 class="text-2xl text-light font-semibold mb-8">
+    <h2 class="text-2xl text-light font-semibold mb-8 text-center md:text-start">
       Showing results for <span class="text-primary">{{ dateSelected ?? 'Today' }}</span>
     </h2>
 

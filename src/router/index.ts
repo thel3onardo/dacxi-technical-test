@@ -7,7 +7,6 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      //TODO: lazy load components
       component: HomeView
     }
   ]

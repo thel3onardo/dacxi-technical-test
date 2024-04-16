@@ -35,12 +35,14 @@ const formatPercentage = (percentageValue: number) => {
         >
       </div>
 
-      <div class="flex items-center justify-between w-full">
+      <div
+        class="flex justify-between flex-col items-start md:flex-row md:items-center gap-y-8 md:gap-y-0 w-full"
+      >
         <section class="flex flex-col gap-y-2">
           <span class="uppercase text-sm text-[#D9D9D9]/80">current price</span>
           <div class="flex items-end gap-x-4">
             <h4 class="font-semibold text-3xl text-light">
-              ${{ coinStore.currentCoin?.price.current }}
+              ${{ Number(coinStore.currentCoin?.price.current) }}
             </h4>
             <div v-if="!isHistory" class="flex items-center text-green-500">
               <span class="font-medium">{{
