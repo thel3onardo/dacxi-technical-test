@@ -29,10 +29,10 @@ onMounted(async () => {
 <template>
   <BaseLayout class="px-8">
     <div
-      class="flex justify-between flex-col items-center gap-y-8 md:items-end md:flex-row w-full mb-8"
+      class="flex justify-between flex-col items-center gap-y-8 md:items-end md:flex-row w-full max-w-[300px] md:max-w-none mx-auto md:mx-0 mb-8"
     >
       <ul
-        class="gap-x-4 flex flex-col md:flex-row items-center gap-y-6 md:gap-y-0 w-full max-w-[300px] md:w-auto"
+        class="gap-x-4 flex flex-col md:flex-row items-center gap-y-6 md:gap-y-0 w-full md:w-auto"
       >
         <li v-for="coin in COINS" :key="coin" class="w-full">
           <Button
