@@ -34,8 +34,8 @@ I am available to discuss the project and the decisions I made while creating it
 
 In order to run the project in your machine, you will need to have the following dependencies installed in your machine:
 
-- nodejs 20.11.0 or higher
-- pnpm 8.15.4 or higher
+- nodejs 20.11.0
+- pnpm 8.15.4
 - git
 
 Now, follow the steps below:
