@@ -15,7 +15,7 @@ export type CurrentCoin = {
   }
 }
 
-export type CoinName = keyof typeof COINS
+export type CoinName = keyof typeof COINS | (typeof COINS)[keyof typeof COINS]
 
 export type FetchCoinArgs = {
   name: CoinName

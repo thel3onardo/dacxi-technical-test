@@ -22,7 +22,7 @@ const setDateAndFetch = (dateFormatted: string) => {
 }
 
 onMounted(async () => {
-  await coinStore.fetchAndSetData('bitcoin')
+  await coinStore.fetchAndSetData('BITCOIN')
 })
 </script>
 
